@@ -1,238 +1,180 @@
-#MODULES-------------------------------------------------------------------------------------------------------------
-
-import pygame
-import numpy as np
 import random
+import numpy as np
+import sys
 
-pygame.init()
+matrix = np.empty((6,6))
+copy = np.empty((6,6))
+inp = 0
+counter = 0
+index = 0
 
-#VARIABLES-----------------------------------------------------------------------------------------------------------
+#setting all values in matrix to zero and corner ones to -1
+for i in range(0,6):
+    for j in range(0,6):
+        if (j==0 or j==5 or i==0 or i==5):
+            matrix[i][j] = -1
+        else:
+            matrix[i][j] = 0
 
-#Screen variables
-screen = pygame.display.set_mode((900,900))
-running = True
-two = pygame.image.load("images/2048/2.png")
-four = pygame.image.load("images/2048/4.png")
-eight = pygame.image.load("images/2048/8.png")
-sixteen = pygame.image.load("images/2048/16.png")
-threetwo = pygame.image.load("images/2048/32.png")
-sixfour = pygame.image.load("images/2048/64.png")
-onetwoeight = pygame.image.load("images/2048/128.png")
-twofivesix = pygame.image.load("images/2048/256.png")
-fiveonetwo = pygame.image.load("images/2048/512.png")
-onezerotwofour = pygame.image.load("images/2048/1024.png")
-twozerofoureight = pygame.image.load("images/2048/2048.png")
-lose = pygame.image.load("images/lose.png")
-win = pygame.image.load("images/win.png")
+#asking for input
+def asking_input():
+    global inp
+    inp = input("")
 
-matrix = np.empty([45,45])
-check_matrix = np.empty([6,6])
-win = 0
-time = 0
-checker = 0
-
-#DEFINTION FUNCTIONS-------------------------------------------------------------------------------------------------
-
+#finding number of empty cells in matrix
 def zero_finder():
-    global matrix, counter, a
-    counter = 0
-    for i in range(0,4):
-        for j in range(0,4):
-            if(matrix[i*10 + 5][j*10 + 5] == 0):
-                counter = counter + 1
-
-def create_two():
-    global matrix, counter
-    temporary = 0
-    zero_finder()
-    if(counter > 2):
-        counter = 2
-    while(temporary < counter):
-        x = random.randint(0,3)
-        y = random.randint(0,3)
-        if(matrix[x*10 + 5][y*10 + 5] == 0):
-            d = random.randint(1,10)
-            if(d == 1):
-                matrix[x*10 + 5][y*10 + 5] = 4
-            else:
-                matrix[x*10 + 5][y*10 + 5] = 2
-            temporary = temporary + 1
-    
-def move_up_matrix():
     global matrix
-    for i in range(0,40):
-        for j in range(0,40):
-            if(i>5):
-                if(matrix[i][j] > matrix[i-1][j] and matrix[i-1][j] == 0 and (matrix[i-10][j] == 0 or matrix[i-10][j] == matrix[i][j])):
-                    (matrix[i][j],matrix[i-1][j]) = (matrix[i-1][j],matrix[i][j])
-                if(matrix[i-1][j] == matrix[i][j]):
-                    matrix[i-1][j] = matrix[i-1][j] + matrix[i][j]
-                    matrix[i][j] = 0
-
-def move_down_matrix():
-    global matrix
-    for i in range(0,35):
-        for j in range(0,40):
-            x = 34 - i
-            if(matrix[x][j] > matrix[x+1][j] and matrix[x+1][j] == 0 and (matrix[x+10][j] == 0 or matrix[x+10][j] == matrix[x][j])):
-                (matrix[x][j],matrix[x+1][j]) = (matrix[x+1][j],matrix[x][j])
-            if(matrix[x+1][j] == matrix[x][j]):
-                    matrix[x+1][j] = matrix[x][j] + matrix[x+1][j]
-                    matrix[x][j] = 0
-
-def move_left_matrix():
-    global matrix
-    for i in range(0,40):
-        for j in range(0,40):
-            if(j>5):
-                if(matrix[i][j] > matrix[i][j-1] and matrix[i][j-1] == 0 and (matrix[i][j-10] == 0 or matrix[i][j-10] == matrix[i][j])):
-                    (matrix[i][j],matrix[i][j-1]) = (matrix[i][j-1],matrix[i][j])
-                if(matrix[i][j] == matrix[i][j-1]):
-                    matrix[i][j-1] = matrix[i][j] + matrix[i][j-1]
-                    matrix[i][j] = 0
-
-def move_right_matrix():
-    global matrix
-    for j in range(0,35):
-        for i in range(0,40):
-            y = 34 - j
-            if(matrix[i][y] > matrix[i][y+1] and matrix[i][y+1] == 0 and (matrix[i][y+10] == 0 or matrix[i][y+10] == matrix[i][y])):
-                (matrix[i][y],matrix[i][y+1]) = (matrix[i][y+1],matrix[i][y])
-            if(matrix[i][y] == matrix[i][y+1]):
-                matrix[i][y+1] = matrix[i][y] + matrix[i][y+1]
-                matrix[i][y] = 0
-
-def show():
-    global matrix
-    screen.fill((0,0,0))
-    for i in range(0,40):
-        for j in range(0,40):
-            if(matrix[i][j] == 2):
-                screen.blit(two,(j*20,i*20))
-            elif(matrix[i][j] == 4):
-                screen.blit(four,(j*20,i*20))
-            elif(matrix[i][j] == 8):
-                screen.blit(eight,(j*20,i*20))
-            elif(matrix[i][j] == 16):
-                screen.blit(sixteen,(j*20,i*20))
-            elif(matrix[i][j] == 32):
-                screen.blit(threetwo,(j*20,i*20))
-            elif(matrix[i][j] == 64):
-                screen.blit(sixfour,(j*20,i*20))
-            elif(matrix[i][j] == 128):
-                screen.blit(onetwoeight,(j*20,i*20))
-            elif(matrix[i][j] == 256):
-                screen.blit(twofivesix,(j*20,i*20))
-            elif(matrix[i][j] == 512):
-                screen.blit(fiveonetwo,(j*20,i*20))
-            elif(matrix[i][j] == 1024):
-                screen.blit(onezerotwofour,(j*20,i*20))
-            elif(matrix[i][j] == 2048):
-                screen.blit(twozerofoureight,(j*20,i*20))
-
-def move_up():
-    global matrix
-    for i in range(0,40):
-        move_up_matrix()
-        show()
-        pygame.display.update()
-
-def move_down():
-    global matrix
-    for i in range(0,40):
-        move_down_matrix()
-        show()
-        pygame.display.update()
-
-def move_left():
-    global matrix
-    for i in range(0,40):
-        move_left_matrix()
-        show()
-        pygame.display.update()
-
-def move_right():
-    global matrix
-    for i in range(0,40):
-        move_right_matrix()
-        show()
-        pygame.display.update()
-
-def check():
-    global matrix, check_matrix, running, win, time
-    for i in range(0,6):
-        for j in range(0,6):
-            if(i == 0 or i == 5 or j == 0 or j == 5):
-                check_matrix[i][j] = -1
-            else:
-                check_matrix[i][j] = matrix[(i-1)*10 + 5][(j-1)*10 + 5]
-    
     counter = 0
     for i in range(1,5):
         for j in range(1,5):
-            if(check_matrix[i][j] == 2048):
-                win = 1
-                time = time + 1
-            if(check_matrix[i][j] != 0):
-                if((check_matrix[i][j] != check_matrix[i-1][j]) and (check_matrix[i][j] != check_matrix[i+1][j]) and (check_matrix[i][j] != check_matrix[i][j-1]) and (check_matrix[i][j] != check_matrix[i][j+1])):
+            if(matrix[i][j] == 0):
+                counter = counter + 1
+    return counter
+
+def two():
+    global matrix
+    c = 0
+    index = 0
+    counter = zero_finder()
+    if(counter > 2):
+        counter = 2    
+    while (c < counter):
+        i = random.randint(1,4)
+        j = random.randint(1,4)
+        if(matrix[i][j] == 0):
+            #generating random number as 4 10% of time and 2 90% of time
+            index = random.randint(1,10)
+            if (index == 10):
+                matrix[i][j] = 4
+            else:
+                matrix[i][j] = 2
+            c = c + 1
+
+#SORTING
+def sort(a):
+    for j in range(1,5):
+        for p in range(0,4):
+            for i in range(1,4):
+                if((a[i][j] != -1) and (a[i+1][j] != -1)):
+                    if ((a[i][j] < a[i+1][j]) and a[i][j]==0):
+                        [a[i+1][j],a[i][j]] = [a[i][j],a[i+1][j]]
+
+def add(a):
+    for j in range(1,5):
+        for i in range(1,4):
+            if((a[i][j] != -1) and (a[i+1][j] != -1)):
+                if (a[i][j] == a[i+1][j]):
+                    a[i][j] = a[i][j] + a[i+1][j]
+                    a[i+1][j] = 0
+    sort(a)
+
+#copying the matrix into the copy
+def copy_matrix(a,b):
+    for i in range(0,6):
+        for j in range(0,6):
+            b[i][j] = a[i][j]
+
+#TRANSPOSE
+def transpose(a, b):
+    global inp, matrix, copy
+    copy_matrix(matrix, copy)
+    for i in range(1,5):
+        for j in range(1,5):
+            if(inp == 'w'):
+                b[i][j] = a[i][j]
+            if(inp == 'd'):
+                b[5-j][i] = a[i][j]
+            if(inp == 's'):
+                b[5-i][5-j] = a[i][j]
+            if(inp == 'a'):
+                b[j][5-i] = a[i][j]
+    sort(b)
+    add(b)
+
+def detranspose(a,b):
+    global inp, matrix, copy
+    for i in range(1,5):
+        for j in range(1,5):
+            if(inp == 'w'):
+                a[i][j] = b[i][j]
+            if(inp == 'd'):
+                a[j][5-i] = b[i][j]
+            if(inp == 's'):
+                a[i][j] = b[5-i][5-j]
+            if(inp == 'a'):
+                a[5-j][i] = b[i][j]
+
+def ask():
+    ask = input("Would you like to retry? ")
+    if(ask == 'yes' or ask == 'Yes'):
+        retry()
+    else:
+        exit()
+
+
+def retry():
+    global matrix
+    for i in range(1,5):
+        for j in range(1,5):
+            if(matrix[i][j] == 2 or matrix[i][j] == 4 or matrix[i][j] == 8):
+                matrix[i][j] = 0
+    colour()
+
+def check():
+    global matrix, counter
+    counter = 0
+    for i in range(1,5):
+        for j in range(1,5):
+            if(matrix[i][j] == 2048):
+                print("\n\nYou won!\n\n")
+                exit()
+            if(matrix[i][j] != 0):
+                if((matrix[i][j] != matrix[i-1][j]) and (matrix[i][j] != matrix[i+1][j]) and (matrix[i][j] != matrix[i][j-1]) and (matrix[i][j] != matrix[i][j+1])):
                     counter = counter + 1
     if(counter == 16):
-        time = time + 1
+        print("\n\nYou lost\n\n")
+        #ask()
+        exit()
 
-#lOOP--------------------------------------------------------------------------------------------------------------------
+def colour():
+    for i in range(1,5):
+        print("\n")
+        for j in range(1,5):
+            if(matrix[i][j] == 0): print("⬛",end="  ")
+            if(matrix[i][j] == 2): print("🟫",end="  ")
+            if(matrix[i][j] == 4): print("🟥",end="  ")
+            if(matrix[i][j] == 8): print("🟨",end="  ")
+            if(matrix[i][j] == 16): print("🟩",end="  ")
+            if(matrix[i][j] == 32): print("🟦",end="  ")
+            if(matrix[i][j] == 64): print("🟪",end="  ")
+            if(matrix[i][j] == 128): print("⬜",end="  ")
+            if(matrix[i][j] == 256): print("🔳",end="  ")
+            if(matrix[i][j] == 512): print("👀",end="  ")
+            if(matrix[i][j] == 1024): print("☢️",end="   ")
+            if(matrix[i][j] == 2048): print("✨",end="  ")
 
-for i in range(0,45):
-    for j in range(0,45):
-        matrix[i][j] = 0
+def erase():
+    global index
+    for i in range(0,(9+index)):
+        sys.stdout.write("\x1b[1A\x1b[2K") #brings the cursor back one line --> I put it in loop
+    index = 0
 
-create_two()
+print("\n\n")
 
-while running:
-    show()
+two()
+colour()
 
+while(inp != 'n'):
+    #will not add random two's if you entered something besides the given commands - otherwise infinite glitch
+    if(inp == 'w' or inp == 'a' or inp == 's' or inp == 'd'):
+        two()
+        colour()
     check()
-
-    if(time > 50):
-        screen.fill((0,0,0))
-    if(time == 80):
-        running = False
-
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
-            checker = 1
-        
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_w or event.key == pygame.K_UP:
-                move_up()
-                valid = 1
-            elif event.key == pygame.K_s or event.key == pygame.K_DOWN:
-                move_down()
-                valid = 1
-            elif event.key == pygame.K_a or event.key == pygame.K_LEFT:
-                move_left()
-                valid = 1
-            elif event.key == pygame.K_d or event.key == pygame.K_RIGHT:
-                move_right()
-                valid = 1
-            else:
-                valid = 0
-        if (event.type == pygame.KEYUP) and (valid == 1):
-            create_two()
-        
-    pygame.display.update()
-
-if(checker == 0):
-    going = True
-else:
-    going = False
-
-while going:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            going = False
-    if(win == 1):
-        screen.blit(win,(0,350))
+    asking_input()
+    #will not erase the matrix if random two's were not added (AKA when w a s d commands not used)
+    if (inp == 'w' or inp == 'a' or inp == 's' or inp == 'd'):
+        erase()
     else:
-        screen.blit(lose,(0,350))
-    pygame.display.update()
+        index = index + 1
+    transpose(matrix, copy)
+    detranspose(matrix, copy)
