@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+
+<html>
+
+<body>
+
+    <!-- src = source link -->
+
+    <p class = 'title'>Rock Paper Scissors</p>
+
+    <button class = 'rock-button'><img class = 'rock-icon' src = ../images/rock-emoji.png></button>
+    <button class = 'paper-button'><img class = 'paper-icon' src = ../images/paper-emoji.png></button>
+    <button class = 'scissors-button'><img class = 'scissors-icon' src = ../images/scissors-emoji.png></button>
+
+    <p class = "js-result"></p>
+    <p class = "js-components"></p>
+    <br><br>
+    <p class="js-score">Wins: Losses: Ties: </p>
+    
+    <script>printingScore();</script>
+
+    <button class = 'reset-button'>Reset Score</button>
+    <button class = 'auto-play-button'>Auto Play</button>
+
+</body>
+
+<!-- head is below body here because I want to load the js file after the button elements' code (AKA after the buttons have been made + added to js file's DOM) otherwise it doesn't work - acuerdo chatGPT-->
+
+<head>
+    <title>Rock Paper Scissors</title>
+    <link rel="stylesheet" href="../cssFile/rps.css"> <!-- this is how we link our css file to html -->
+    <script src="../jsFile/rps.js"></script> <!-- this is how we link our JS file to html -->
+</head>
+
+</html>
