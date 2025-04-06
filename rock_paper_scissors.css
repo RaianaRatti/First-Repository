@@ -1,0 +1,145 @@
+body {
+background-color: rgb(25,25,25);
+color: white;
+font-family: Arial;
+}
+
+.title {
+font-size: 30px;
+font-weight: bold;
+}
+
+.rock-icon {
+    height: 50px; /*resizes width accordingly so shape remains the same*/
+}
+
+.paper-icon {
+    height: 50px;
+}
+
+.scissors-icon {
+    height: 50px;
+}
+
+.rock-button {
+    background-color: transparent;
+    border: 3px solid white;
+    width: 120px;
+    height: 120px;
+    border-radius: 100px;
+    margin-right: 10px;
+    cursor: pointer;
+    box-shadow: 7px 7px 7px black;
+    transition: background-color 0.2s;
+}
+
+.paper-button {
+    background-color: transparent;
+    border: 3px solid white;
+    width: 120px;
+    height: 120px;
+    border-radius: 100px;
+    margin-right: 10px;
+    cursor: pointer;
+    box-shadow: 7px 7px 7px black;
+    transition: background-color 0.2s;
+}
+
+.scissors-button {
+    background-color: transparent;
+    border: 3px solid white;
+    width: 120px;
+    height: 120px;
+    border-radius: 100px;
+    margin-right: 10px;
+    cursor: pointer;
+    box-shadow: 7px 7px 7px black;
+    transition: background-color 0.2s;
+}
+
+.rock-button:hover {
+    background-color:gray;
+}
+
+.paper-button:hover {
+    background-color:gray;
+}
+
+.scissors-button:hover {
+    background-color:gray;
+}
+
+.rock-button:active {
+    background-color:white;
+    transform: translate(2px, 2px); /* Moves button slightly */
+    box-shadow: 5px 5px 5px black;
+}
+
+.paper-button:active {
+    background-color:white;
+    transform: translate(2px, 2px); /* Moves button slightly */
+    box-shadow: 5px 5px 5px black;
+}
+
+.scissors-button:active {
+    background-color:white;
+    transform: translate(2px, 2px); /* Moves button slightly */
+    box-shadow: 5px 5px 5px black;
+}
+
+.js-result {
+    font-size: 25px;
+    font-weight: bold;
+    margin-top: 50px;
+}
+
+.reset-button {
+    border: none;
+    background-color: green;
+    font-weight: bold;
+    color: white;
+    padding: 12px 15px; /*first value = vertical padding, second = horizontal padding*/
+    font-size: 15px;
+    cursor: pointer;
+    box-shadow: 5px 5px 5px black;
+    transition: font-weight 0.4s, background-color 0.5s, color 0.5s; /*to make the transition of color slower when hover on*/
+}
+
+.reset-button:hover {
+    background-color:white;
+    color: green;
+}
+
+.reset-button:active {
+    font-weight:bold;
+    background-color:white;
+    color:black;
+    transform: translate(2px, 2px);
+    box-shadow: 3px 3px 3px black;
+}
+
+.auto-play-button {
+    border: none;
+    background-color: rgb(183, 181, 181);
+    font-weight: bold;
+    color: black;
+    padding: 12px 15px; /*first value = vertical padding, second = horizontal padding*/
+    font-size: 15px;
+    cursor: pointer;
+    box-shadow: 5px 5px 5px black;
+    width: 100px;
+    transition: font-weight 0.4s, background-color 0.5s, color 0.5s; /*to make the transition of color slower when hover on*/
+}
+
+.auto-play-button:hover {
+    background-color:rgb(183, 181, 181);
+    color: black;
+}
+
+.auto-play-button:active {
+    font-weight:bold;
+    background-color:rgb(183, 181, 181);
+    color:black;
+    transform: translate(2px, 2px);
+    box-shadow: 3px 3px 3px black;
+}
