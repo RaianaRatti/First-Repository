@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+
+<html>
+
+<body>
+
+    <p class = "title">To-Do List</p>
+
+    <div class = "input-grid">
+        <input class="chore-input-textbox" 
+                placeholder="Task" 
+                onfocus = "clearPlaceHolder(this);" 
+                onblur = "restorePlaceHolder(this,'Task');"
+            >
+        <input class="date-input-box" 
+                type="date"
+            >
+        <button class="add-button" >Add</button>
+    </div>
+    
+    <div class="display-list-elements"></div>
+
+</body>
+
+<head>
+    <title>To-Do List</title>
+    <script src="../jsFile/todo.js"></script>
+    <link rel= "stylesheet" href="../cssFile/todo.css">
+</head>
+
+</html>

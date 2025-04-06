@@ -1,0 +1,79 @@
+body {
+    font-family: Arial;
+    color: white;
+    background-color: rgb(25,25,25);
+}
+
+.title {
+    font-size: 50px;
+    font-weight: bold;
+    text-shadow: 7px 7px 7px black;
+}
+
+.display-list-elements,
+.input-grid {
+    display: grid;
+    grid-template-columns: 200px 150px 100px; /* creating 3 columns with corresponding lengths */
+    column-gap: 10px;
+    row-gap: 10px;
+    padding: 6px;
+    align-items: center; /* css property for vertical alignment in grid, alignment is by default at stretch */
+}
+
+.input-grid {
+    margin-bottom: 10px;
+    align-items: stretch; /* we changed alignment for add button to center (above, as it is part of input-grid) so we change it back to stretch for the entire input row */
+}
+
+.add-button {
+    background-color: green;
+    color: white;
+    border: none;
+    font-size: 15px;
+    cursor: pointer;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    box-shadow: 3px 3px 3px black;
+    transition: font-weight 0.2s, background-color 0.3s, color 0.3s;
+    border-radius: 100px;
+}
+
+.add-button:hover {
+    background-color: white;
+    color: green;
+}
+
+.add-button:active {
+    background-color: white;
+    color: black;
+    font-weight:bold;
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 1px black;
+}
+
+.delete-button {
+    background-color: darkred;
+    color: white;
+    border: none;
+    font-size: 15px;
+    cursor: pointer;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    align-items: stretch;
+    box-shadow: 3px 3px 3px black;
+    transition: font-weight 0.2s, background-color 0.3s, color 0.3s;
+    border-radius: 100px;
+}
+
+.delete-button:hover {
+    background-color: white;
+    color: darkred;
+}
+
+.delete-button:active {
+    background-color: white;
+    color: black;
+    font-weight:bold;
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 1px black;
+}
